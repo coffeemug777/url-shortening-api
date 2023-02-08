@@ -35,7 +35,7 @@ public class UrlDataService {
 
     private String generateShortenedUrl(String urlInput) {
         try {
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss.SSSSSS").format(new java.util.Date());
             String urlPlusTime = urlInput.concat(timeStamp);
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(urlPlusTime.getBytes());
