@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -31,6 +32,18 @@ public class UrlDataService {
         counter = counter + 1L;
 
         return newResponse;
+    }
+
+    public UrlDataResponse getUrl(Long id) {
+        UrlDataResponse result = urlData.stream().filter(url -> url.getId().equals(id)).findFirst().orElse(null);
+        if(result == null) {
+            return new UrlDataResponse(0L,"","");
+        }
+        return result;
+    }
+
+    public List<UrlDataResponse> getAll() {
+        return urlData;
     }
 
     private String generateShortenedUrl(String urlInput) {

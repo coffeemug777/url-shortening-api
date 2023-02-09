@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
@@ -23,4 +25,18 @@ public class UrlShorteningController {
     public UrlDataResponse createUrl(@RequestBody UrlDataRequest request) {
         return urlDataService.createUrl(request);
     }
+
+
+    @GetMapping("/get/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UrlDataResponse getUrl(@PathVariable Long id) {
+        return urlDataService.getUrl(id);
+    }
+
+    @GetMapping("/get/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UrlDataResponse> getAll() {
+        return urlDataService.getAll();
+    }
+
 }
