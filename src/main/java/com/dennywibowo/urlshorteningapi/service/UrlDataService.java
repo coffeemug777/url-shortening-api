@@ -72,4 +72,13 @@ public class UrlDataService {
         }
         return "";
     }
+
+    private UrlDataResponse mapToUrlDataResponse(UrlData urlData) {
+        return UrlDataResponse.builder()
+                .id(urlData.getId())
+                .url(urlData.getUrl())
+                .shortUrl(urlData.getShortUrl())
+                .build();
+    }
+
 }
