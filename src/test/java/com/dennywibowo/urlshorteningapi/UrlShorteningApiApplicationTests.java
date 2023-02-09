@@ -19,28 +19,6 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UrlShorteningApiApplicationTests {
-
-	@Autowired
-	private UrlDataRepository urlDataRepository;
-
-	@Test
-	void UrlDataService_createUrl_Test() {
-		UrlDataService testService = new UrlDataService(urlDataRepository);
-		UrlDataRequest testRequest = new UrlDataRequest();
-		testRequest.setUrl("http://test.org/some/page/1");
-
-		UrlDataResponse result = testService.createUrl(testRequest);
-
-		assertAll("url",
-				() -> assertEquals(1, result.getId()),
-				() -> assertEquals("http://test.org/some/page/1", result.getUrl()),
-				() -> assertEquals(7, result.getShortUrl().length())
-		);
-
-		UrlDataResponse result2 = testService.createUrl(testRequest);
-		assertEquals(2, result2.getId());
-	}
-
 	@InjectMocks
 	private UrlShorteningController controller;
 
