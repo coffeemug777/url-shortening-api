@@ -2,6 +2,9 @@ package com.dennywibowo.urlshorteningapi.service;
 
 import com.dennywibowo.urlshorteningapi.dto.UrlDataRequest;
 import com.dennywibowo.urlshorteningapi.dto.UrlDataResponse;
+import com.dennywibowo.urlshorteningapi.model.UrlData;
+import com.dennywibowo.urlshorteningapi.repository.UrlDataRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.*;
 import java.security.MessageDigest;
@@ -14,6 +17,12 @@ import jakarta.xml.bind.DatatypeConverter;
 
 @Service
 public class UrlDataService {
+    private final UrlDataRepository urlDataRepository;
+
+    @Autowired
+    public UrlDataService(UrlDataRepository urlDataRepository) {
+        this.urlDataRepository = urlDataRepository;
+    }
     private List<UrlDataResponse> urlData = new ArrayList<>();
     private Long counter = 1L;
 
