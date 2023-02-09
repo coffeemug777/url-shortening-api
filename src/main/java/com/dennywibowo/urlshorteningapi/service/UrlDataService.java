@@ -24,22 +24,19 @@ public class UrlDataService {
         this.urlDataRepository = urlDataRepository;
     }
     private List<UrlDataResponse> urlData = new ArrayList<>();
-    private Long counter = 1L;
 
     public UrlDataResponse createUrl(UrlDataRequest request) {
         String shortenedUrl = generateShortenedUrl(request.getUrl());
 
+        UrlData savedData = urlDataRepository.save(UrlData.builder()
+                        .url(request.getUrl())
+                        .shortUrl(shortenedUrl)
+                        .build());
+
         // do check for duplicated URL;
         // while not duplicate, generateShortenedUrl
-        UrlDataResponse newResponse= UrlDataResponse.builder()
-                .id(counter)
-                .url(request.getUrl())
-                .shortUrl(shortenedUrl)
-                .build();
 
-        urlData.add(newResponse);
-        counter = counter + 1L;
-
+        UrlDataResponse newResponse= mapToUrlDataResponse(savedData);
         return newResponse;
     }
 
