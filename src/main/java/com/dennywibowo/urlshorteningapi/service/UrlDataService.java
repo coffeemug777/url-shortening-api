@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.*;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -23,7 +21,6 @@ public class UrlDataService {
     public UrlDataService(UrlDataRepository urlDataRepository) {
         this.urlDataRepository = urlDataRepository;
     }
-    private List<UrlDataResponse> urlData = new ArrayList<>();
 
     public UrlDataResponse createUrl(UrlDataRequest request) {
         String shortenedUrl = generateShortenedUrl(request.getUrl());
@@ -41,15 +38,11 @@ public class UrlDataService {
     }
 
     public UrlDataResponse getUrl(Long id) {
-        UrlDataResponse result = urlData.stream().filter(url -> url.getId().equals(id)).findFirst().orElse(null);
-        if(result == null) {
-            return new UrlDataResponse(0L,"","");
-        }
-        return result;
+        return mapToUrlDataResponse(urlDataRepository.getReferenceById(id));
     }
 
     public List<UrlDataResponse> getAll() {
-        return urlData;
+        return urlDataRepository.findAll().stream().map(urlData1 -> mapToUrlDataResponse(urlData1)).toList();
     }
 
     private String generateShortenedUrl(String urlInput) {
